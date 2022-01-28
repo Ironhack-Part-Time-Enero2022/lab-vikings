@@ -21,10 +21,7 @@ for i in nombres_vik_army:
 vik_mano = random.sample(vik_army, 5)
 num = range(1, 6)
 vik_mano_1 = zip(num, vik_mano)
-print('Vikings')
-for i in vik_mano_1:
-    print(i[0], i[1].__dict__)
-print('\n')
+
 
 # Construimos el ejercito sajon con 15 efectivos
 sax_army = []
@@ -41,11 +38,30 @@ print('\n')
 
 # class para el ataque del jugador
 class AtaqueJugador:
-    def __init__(self, army_player, army_computer, reserve_player, reserve_computer):
+    def __init__(self, player_army_name, computer_army_name, iterable_jug, iterable_com, army_player, army_computer, reserve_player, reserve_computer):
+        self.player_army_name = player_army_name
+        self.computer_army_name = computer_army_name
+        self.iterable_jug = iterable_jug
+        self.iterable_com = iterable_com
         self.army_player = army_player
         self.army_computer = army_computer
         self.reserve_player = reserve_player
         self.reserve_computer = reserve_computer
+
+    def ejercito_player(self):
+        print(self.player_army_name)
+        for i in self.iterable_jug:
+            print(i[0], i[1].__dict__)
+            print('patata')
+        print('\n')
+        return self.ejercito_com()
+
+    def ejercito_com(self):
+        print(self.computer_army_name)
+        for y in self.iterable_com:
+            print(y[0], y[1].__dict__)
+        print('\n')
+        return self.soldierChoice()
 
     def soldierChoice(self):
         player_choice = int(input('Elige con que soldado quieres atacar: '))
@@ -56,24 +72,26 @@ class AtaqueJugador:
         return self.ataque(player, computer)
 
     def ataque(self, soldier_player, soldier_computer):
-        print('patata 1')
         soldier_computer.receiveDamage(soldier_player.strength)
         if soldier_computer.health <= 0 and len(self.reserve_computer) > 0:
             self.army_computer.remove(soldier_computer)
             x = random.choice(self.reserve_computer)
             self.army_computer.append(x)
             self.reserve_computer.remove(x)
-            print('patata 2')
-            return AtaqueOrdenador(self.army_player, self.army_computer, self.reserve_player, self.reserve_computer).soldierChoice()
+            return AtaqueOrdenador(self.player_army_name, self.computer_army_name, self.iterable_jug, self.iterable_com, self.army_player, self.army_computer, self.reserve_player, self.reserve_computer).soldierChoice()
         elif soldier_computer.health <= 0 and len(self.reserve_computer) == 0:
             self.army_computer.remove(soldier_computer)
-            return AtaqueOrdenador(self.army_player, self.army_computer, self.reserve_player, self.reserve_computer).soldierChoice()
+            return AtaqueOrdenador(self.player_army_name, self.computer_army_name, self.iterable_jug, self.iterable_com, self.army_player, self.army_computer, self.reserve_player, self.reserve_computer).soldierChoice()
         else:
-            return AtaqueOrdenador(self.army_player, self.army_computer, self.reserve_player, self.reserve_computer).soldierChoice()
+            return AtaqueOrdenador(self.player_army_name, self.computer_army_name, self.iterable_jug, self.iterable_com, self.army_player, self.army_computer, self.reserve_player, self.reserve_computer).soldierChoice()
 
 
 class AtaqueOrdenador:
-    def __init__(self, army_player, army_computer, reserve_player, reserve_computer):
+    def __init__(self, player_army_name, computer_army_name, iterable_jug, iterable_com, army_player, army_computer, reserve_player, reserve_computer):
+        self.player_army_name = player_army_name
+        self.computer_army_name = computer_army_name
+        self.iterable_jug = iterable_jug
+        self.iterable_com = iterable_com
         self.army_player = army_player
         self.army_computer = army_computer
         self.reserve_player = reserve_player
@@ -82,23 +100,21 @@ class AtaqueOrdenador:
     def soldierChoice(self):
         player_choice = random.choice(self.army_player)
         computer_choice = random.choice(self.army_computer)
-        print('patata 3')
         return self.ataque(player_choice, computer_choice)
 
     def ataque(self, soldier_player, soldier_computer):
         soldier_computer.receiveDamage(soldier_player.strength)
         if soldier_computer.health <= 0 and len(self.reserve_computer) > 0:
-            print('patata 4')
             self.army_computer.remove(soldier_computer)
             x = random.choice(self.reserve_computer)
             self.army_computer.append(x)
             self.reserve_computer.remove(x)
-            return AtaqueJugador(self.army_player, self.army_computer, self.reserve_player, self.reserve_computer).soldierChoice()
+            return AtaqueJugador(self.player_army_name, self.computer_army_name, self.iterable_jug, self.iterable_com, self.army_player, self.army_computer, self.reserve_player, self.reserve_computer).ejercito_player()
         elif soldier_computer.health <= 0 and len(self.reserve_computer) == 0:
             self.army_computer.remove(soldier_computer)
-            return AtaqueJugador(self.army_player, self.army_computer, self.reserve_player, self.reserve_computer).soldierChoice()
+            return AtaqueJugador(self.player_army_name, self.computer_army_name, self.iterable_jug, self.iterable_com, self.army_player, self.army_computer, self.reserve_player, self.reserve_computer).ejercito_player()
         else:
-            return AtaqueJugador(self.army_player, self.army_computer, self.reserve_player, self.reserve_computer).soldierChoice()
+            return AtaqueJugador(self.player_army_name, self.computer_army_name, self.iterable_jug, self.iterable_com, self.army_player, self.army_computer, self.reserve_player, self.reserve_computer).ejercito_player()
 
 def chooseArmy():
     """
@@ -110,12 +126,19 @@ def chooseArmy():
         ejer_com = sax_army
         mano_jug = vik_mano
         mano_com = sax_mano
+        iterable_jug = vik_mano_1
+        iterable_com = sax_mano_1
+        player_army_name = 'Vikingos'
+        computer_army_name = 'Sajones'
     else:
         ejer_jug = sax_army
         ejer_com = vik_army
         mano_jug = sax_mano
         mano_com = vik_mano
-    return AtaqueJugador(mano_jug, mano_com, ejer_jug, ejer_com).soldierChoice()
+        iterable_jug = sax_mano_1
+        iterable_com = vik_mano_1
+        player_army_name = 'Sajones'
+        computer_army_name = 'Vikingos'
+    return AtaqueJugador(player_army_name, computer_army_name, iterable_jug, iterable_com, mano_jug, mano_com, ejer_jug, ejer_com).ejercito_player()
 
 chooseArmy()
-
