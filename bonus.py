@@ -56,16 +56,21 @@ class AtaqueJugador:
         return self.ataque(player, computer)
 
     def ataque(self, soldier_player, soldier_computer):
+        print('patata 1')
         soldier_computer.receiveDamage(soldier_player.strength)
         if soldier_computer.health <= 0 and len(self.reserve_computer) > 0:
             self.army_computer.remove(soldier_computer)
             x = random.choice(self.reserve_computer)
             self.army_computer.append(x)
             self.reserve_computer.remove(x)
+            print('patata 2')
             return AtaqueOrdenador(self.army_player, self.army_computer, self.reserve_player, self.reserve_computer).soldierChoice()
         elif soldier_computer.health <= 0 and len(self.reserve_computer) == 0:
             self.army_computer.remove(soldier_computer)
             return AtaqueOrdenador(self.army_player, self.army_computer, self.reserve_player, self.reserve_computer).soldierChoice()
+        else:
+            return AtaqueOrdenador(self.army_player, self.army_computer, self.reserve_player, self.reserve_computer).soldierChoice()
+
 
 class AtaqueOrdenador:
     def __init__(self, army_player, army_computer, reserve_player, reserve_computer):
@@ -77,19 +82,23 @@ class AtaqueOrdenador:
     def soldierChoice(self):
         player_choice = random.choice(self.army_player)
         computer_choice = random.choice(self.army_computer)
-        print('patata')
+        print('patata 3')
         return self.ataque(player_choice, computer_choice)
 
     def ataque(self, soldier_player, soldier_computer):
         soldier_computer.receiveDamage(soldier_player.strength)
         if soldier_computer.health <= 0 and len(self.reserve_computer) > 0:
+            print('patata 4')
             self.army_computer.remove(soldier_computer)
             x = random.choice(self.reserve_computer)
             self.army_computer.append(x)
             self.reserve_computer.remove(x)
-        elif self.computer.health <= 0 and len(self.reserve_computer) == 0:
+            return AtaqueJugador(self.army_player, self.army_computer, self.reserve_player, self.reserve_computer).soldierChoice()
+        elif soldier_computer.health <= 0 and len(self.reserve_computer) == 0:
             self.army_computer.remove(soldier_computer)
-        return AtaqueJugador.soldierChoice(self.army_player, self.army_computer, self.reserve_player, self.reserve_computer)
+            return AtaqueJugador(self.army_player, self.army_computer, self.reserve_player, self.reserve_computer).soldierChoice()
+        else:
+            return AtaqueJugador(self.army_player, self.army_computer, self.reserve_player, self.reserve_computer).soldierChoice()
 
 def chooseArmy():
     """
