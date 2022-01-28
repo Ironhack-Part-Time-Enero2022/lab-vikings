@@ -1,4 +1,5 @@
 # Juego
+from ast import Try
 import sys
 import random
 from vikingsClasses import War
@@ -36,7 +37,7 @@ for i in sax_mano_1:
     print(i[0], i[1].__dict__)
 print('\n')
 
-# class para el ataque del jugador
+# class para la pelea
 class AtaqueJugador:
     def __init__(self, player_army_name, computer_army_name, iterable_jug, iterable_com, army_player, army_computer, reserve_player, reserve_computer):
         self.player_army_name = player_army_name
@@ -55,7 +56,7 @@ class AtaqueJugador:
         print(self.player_army_name)
         for i in self.iterable_jug:
             print(i[0], i[1].__dict__)
-            print('patata')
+            print('patata 1')
         print('\n')
         return self.ejercito_com()
 
@@ -63,6 +64,7 @@ class AtaqueJugador:
         print(self.computer_army_name)
         for y in self.iterable_com:
             print(y[0], y[1].__dict__)
+            print('patata 2')
         print('\n')
         return self.soldierChoice_1()
 
@@ -132,8 +134,8 @@ def chooseArmy():
         ejer_com = sax_army
         mano_jug = vik_mano
         mano_com = sax_mano
-        iterable_jug = vik_mano_1
-        iterable_com = sax_mano_1
+        iterable_juga = vik_mano_1
+        iterable_comp = sax_mano_1
         player_army_name = 'Vikingos'
         computer_army_name = 'Sajones'
     else:
@@ -141,10 +143,10 @@ def chooseArmy():
         ejer_com = vik_army
         mano_jug = sax_mano
         mano_com = vik_mano
-        iterable_jug = sax_mano_1
-        iterable_com = vik_mano_1
+        iterable_juga = sax_mano_1
+        iterable_comp = vik_mano_1
         player_army_name = 'Sajones'
         computer_army_name = 'Vikingos'
-    return AtaqueJugador(player_army_name, computer_army_name, iterable_jug, iterable_com, mano_jug, mano_com, ejer_jug, ejer_com).ejercito_player()
+    return AtaqueJugador(player_army_name, computer_army_name, iterable_juga, iterable_comp, mano_jug, mano_com, ejer_jug, ejer_com).ejercito_player()
 
 chooseArmy()
