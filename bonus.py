@@ -23,6 +23,9 @@ for i in nombres_vik_army:
 
 # Hacemos la mano de los vikingos con 5 efectivos y asignamos un numero a cada uno
 vik_mano = random.sample(vik_army, 5)
+for i in vik_mano:
+    if i in vik_army:
+        vik_army.remove(i)
 
 # Construimos el ejercito sajon con 15 efectivos
 sax_army = []
@@ -32,6 +35,9 @@ for i in range(0, 15):
 
 # Hacemos la mano de los sajones con 5 efectivos y asignamos un numero a cada uno
 sax_mano = random.sample(sax_army, 5)
+for i in sax_mano:
+    if i in sax_army:
+        sax_army.remove(i)
 
 # class para la pelea
 class AtaqueJugador:
@@ -86,7 +92,7 @@ class AtaqueJugador:
                     self.contador_1 -= 1
                     self.contador_3 -= 1
                     print('Odin Owns You All!')
-                    self.ataque_1
+                    self.soldierChoice_1()
                 else:
                     return self.endGame()
             return self.endGame()
@@ -98,7 +104,7 @@ class AtaqueJugador:
                     self.contador_1 -= 1
                     self.contador_3 -= 1
                     print('Odin Owns You All!')
-                    self.ataque_1
+                    self.soldierChoice_1()
                 else:
                     return self.endGame()
             return self.endGame()
@@ -109,7 +115,7 @@ class AtaqueJugador:
                     self.contador_1 -= 1
                     self.contador_3 -= 1
                     print('Odin Owns You All!')
-                    self.ataque_1
+                    self.soldierChoice_1()
                 else:
                     return self.endGame()
             return self.endGame()
@@ -147,7 +153,7 @@ class AtaqueJugador:
                 self.contador_2 -= 1
                 self.contador_3 -= 1
                 print('Odin Owns You All!')
-                self.ataque_2
+                self.soldierChoice_2()
             else:
                 return self.endGame()
             return self.endGame()
@@ -158,7 +164,7 @@ class AtaqueJugador:
                 self.contador_2 -= 1
                 self.contador_3 -= 1
                 print('Odin Owns You All!')
-                self.ataque_2
+                self.soldierChoice_2()
             else:
 
                 return self.endGame()
@@ -169,7 +175,7 @@ class AtaqueJugador:
                 self.contador_2 -= 1
                 self.contador_3 -= 1
                 print('Odin Owns You All!')
-                self.ataque_2
+                self.soldierChoice_2()
             else:
                 return self.endGame()
             return self.endGame()
