@@ -41,7 +41,7 @@ for i in sax_mano:
 
 # class para la pelea
 class AtaqueJugador:
-    def __init__(self, player_army_name, computer_army_name, army_player, army_computer, reserve_player, reserve_computer, eleccion):
+    def __init__(self, player_army_name, computer_army_name, army_player, army_computer, reserve_player, reserve_computer, eleccion, level):
         self.player_army_name = player_army_name
         self.computer_army_name = computer_army_name
         self.army_player = army_player
@@ -49,6 +49,7 @@ class AtaqueJugador:
         self.reserve_player = reserve_player
         self.reserve_computer = reserve_computer
         self.eleccion = eleccion
+        self.level = level
 
         self.contador_1 = 0
         self.contador_2 = 0
@@ -92,7 +93,7 @@ class AtaqueJugador:
                     self.contador_1 -= 1
                     self.contador_3 -= 1
                     print('Odin Owns You All!')
-                    self.soldierChoice_1()
+                    self.ejercito_player()
                 else:
                     return self.endGame()
             return self.endGame()
@@ -104,7 +105,7 @@ class AtaqueJugador:
                     self.contador_1 -= 1
                     self.contador_3 -= 1
                     print('Odin Owns You All!')
-                    self.soldierChoice_1()
+                    self.ejercito_player()
                 else:
                     return self.endGame()
             return self.endGame()
@@ -115,7 +116,7 @@ class AtaqueJugador:
                     self.contador_1 -= 1
                     self.contador_3 -= 1
                     print('Odin Owns You All!')
-                    self.soldierChoice_1()
+                    self.ejercito_player()
                 else:
                     return self.endGame()
             return self.endGame()
@@ -131,11 +132,23 @@ class AtaqueJugador:
             if self.contador_2 -self.contador_1 == 0:
                 return self.ejercito_player()
             else:
-                return self.soldierChoice_2()
+                if self.level == 1:
+                    return self.soldierChoice_2()
+                else:
+                    return self.soldierChoice_3()
 
     def soldierChoice_2(self):
         player_choice = random.choice(self.army_computer)
         computer_choice = random.choice(self.army_player)
+        return self.ataque_2(player_choice, computer_choice)
+
+    def soldierChoice_3(self):
+        oi = [i.__dict__ for i in self.army_computer]
+        valores_pl = [i['strength'] for i in oi]
+        player_choice = self.army_computer[valores_pl.index(max(valores_pl))]
+        uy = [i.__dict__ for i in self.army_player]
+        valores_com = [i['strength'] for i in uy]
+        computer_choice = self.army_player[valores_com.index(max(valores_com))]
         return self.ataque_2(player_choice, computer_choice)
 
     def ataque_2(self, soldier_computer, soldier_player):
@@ -197,7 +210,7 @@ def chooseArmy():
         mano_com = vik_mano
         player_army_name = 'Sajones'
         computer_army_name = 'Vikingos'
-    return AtaqueJugador(player_army_name, computer_army_name, mano_jug, mano_com, ejer_jug, ejer_com, eleccion).ejercito_player()
+    return AtaqueJugador(player_army_name, computer_army_name, mano_jug, mano_com, ejer_jug, ejer_com, eleccion, level).ejercito_player()
 
 print('1. Instrucciones\n2. Comenzar partida')
 instorplay = int(input('¿Quieres ver las instrucciones (1) o empezar a jugar (2)? '))
@@ -213,4 +226,6 @@ if instorplay == 1:
     else:
         sys.exit()
 else:
+    print('¿En que nivel quieres jugar?')
+    level = int(input('1. Facil        2. Dificil '))
     chooseArmy()
