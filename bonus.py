@@ -123,10 +123,14 @@ class AtaqueJugador:
 
     def endGame(self):
         if len(self.army_player) == 0 and len(self.army_computer) > 0:
+            print('Eres devil y cobarde')
             print(f'Los {self.computer_army_name} ganaron la batalla')
+            print(f'Han sobrevivido {len(self.army_computer)+len(self.reserve_computer)} valerosos soldados')
             return sys.exit()
         elif len(self.army_player) > 0 and len(self.army_computer) == 0:
+            print('Enhorabuena, eres digno de acceder al Valhala')
             print(f'Los {self.player_army_name} ganaron la batalla')
+            print(f'Han sobrevivido {len(self.army_player)+len(self.reserve_player)} valerosos soldados')
             return sys.exit()
         else:
             if self.contador_2 -self.contador_1 == 0:
