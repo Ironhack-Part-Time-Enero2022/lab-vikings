@@ -39,7 +39,7 @@ So, let's say you have already created the class for Soldiers.
 3. In your terminal, run the test file for that class
 
 ```bash
-$ python3 1-testSoldier.py --v
+$ python3 1-testSoldier.py 
 ```
 
 ### Correct Test
@@ -47,7 +47,7 @@ $ python3 1-testSoldier.py --v
 When the tests are all correct you will receive the following message in the terminal.
 
 ```
-$ python3 1-testSoldier.py --v
+$ python3 1-testSoldier.py 
 
 testAttackHasNoParams (__main__.TestSoldier) ... ok
 testAttackRetunsStrength (__main__.TestSoldier) ... ok
@@ -71,7 +71,7 @@ OK
 When any test is incorrect you will receive the following message in the terminal. It means that you must keep making changes in the `vikingsClasses.py` file.
 
 ```
-$ python3 1-testSoldier.py --v
+$ python3 1-testSoldier.py 
 
 testAttackHasNoParams (__main__.TestSoldier) ... ok
 testAttackRetunsStrength (__main__.TestSoldier) ... ok
